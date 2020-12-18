@@ -1,4 +1,5 @@
 import React from "react";
+import { ChatSelct } from "../components/ChatSelect";
 import { InboxPeople } from "../components/InboxPeople";
 import { Message } from "../components/Messages";
 // css
@@ -10,7 +11,8 @@ export const ChatView = () => {
       <div className="messaging">
         <div className="inbox_msg">
           <InboxPeople />
-          <Message/>
+          {/* <Message/> */}
+          <ChatSelct/>
         </div>
       </div>
     </div>
