@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export const LoginView = () => {
 
 	const [form, setForm] = useState({
-		email:'123',
-		password:'dfsdf',
+		email:'rga2@gmail.com',
+		password:'1234',
 		rememberme:true,
 	});	
+
+	// this verify if you wanted to be recorded
+	useEffect(()=>{
+		const remembermeEmail = localStorage.getItem('emailChat');
+		if(remembermeEmail){
+			setForm({
+				...form,
+				rememberme:false,
+				email: remembermeEmail
+			})
+		}
+	});
 
 
 	const onChange = ( {target} ) => {		
@@ -28,6 +40,11 @@ export const LoginView = () => {
 
 	const sendData = (event) => {
 		event.preventDefault();
+		if(form.rememberme){
+			localStorage.setItem('emailChat',form.email);
+		}else{
+			localStorage.removeItem('emailChat');
+		}
 		console.log("login");
 	}
 
