@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
+import  Swal  from 'sweetalert2';
 
 export const LoginView = () => {
 
-	const {login} = useContext(AuthContext);
+	const { login } = useContext(AuthContext);
 
 	const [form, setForm] = useState({
 		email:'rga2@gmail.com',
@@ -16,13 +17,13 @@ export const LoginView = () => {
 	useEffect(()=>{
 		const remembermeEmail = localStorage.getItem('emailChat');
 		if(remembermeEmail){
-			setForm({
+			setForm((form)=>({
 				...form,
 				rememberme:false,
 				email: remembermeEmail
-			})
+			}))
 		}
-	});
+	},[]);
 
 
 	const onChange = ( {target} ) => {		
@@ -41,15 +42,19 @@ export const LoginView = () => {
 	}
 
 
-	const sendData = (event) => {
+	const sendData = async (event) => {
 		event.preventDefault();
 		if(form.rememberme){
 			localStorage.setItem('emailChat',form.email);
 		}else{
 			localStorage.removeItem('emailChat');
 		}
-		login(form.email, form.password)
-		console.log("login");
+		// Authoentication
+		const success = await login(form.email, form.password);
+		if(!success){
+			Swal.fire('Authentication','Incorrect credentials', 'error');
+		}
+		
 	}
 
   return (

@@ -18,7 +18,21 @@ export const AuthProvider = ({children}) => {
 
     const login = async (email, password) => {
         const response = await fetchNoToken('login', {email, password}, 'POST' );
-        console.log(response);
+
+        // Save on localstorage if credentials are correct
+        if(response.ok){
+            localStorage.setItem('tokenChat', response.token);
+            const user = response.user;
+            setAuth({
+                uid: user.uid,
+                cheking: false,
+                logged: true,
+                userName: user.name,
+                email: user.email
+            })
+        }    
+        
+        return response.ok;
     }
 
     const register = () => {
@@ -36,6 +50,7 @@ export const AuthProvider = ({children}) => {
     return (
         <AuthContext.Provider
             value={{
+                auth,
                 login,
                 register,
                 verifyToken ,
