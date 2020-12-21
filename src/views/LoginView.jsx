@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
 
 export const LoginView = () => {
 
+	const {login} = useContext(AuthContext);
+
 	const [form, setForm] = useState({
 		email:'rga2@gmail.com',
-		password:'1234',
+		password:'qwerty2',
 		rememberme:true,
 	});	
 
@@ -45,6 +48,7 @@ export const LoginView = () => {
 		}else{
 			localStorage.removeItem('emailChat');
 		}
+		login(form.email, form.password)
 		console.log("login");
 	}
 
