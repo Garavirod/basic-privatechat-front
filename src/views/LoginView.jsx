@@ -57,6 +57,14 @@ export const LoginView = () => {
 		
 	}
 
+	// Empty fields
+	const emptyFields = (  ) => {
+		if(form.email.length > 0 && form.password.length > 0){
+			return false;
+		}
+		return true;
+	}
+
   return (
 	<form
 		onSubmit={sendData} 
@@ -112,7 +120,10 @@ export const LoginView = () => {
       </div>
 
       <div className="container-login100-form-btn m-t-17">
-        <button className="login100-form-btn">Ingresar</button>
+		<button 
+			type="submit"
+			disabled={emptyFields()} 
+			className="login100-form-btn">Ingresar</button>
       </div>
     </form>
   );
