@@ -35,8 +35,20 @@ export const AuthProvider = ({children}) => {
         return response.ok;
     }
 
-    const register = () => {
-
+    const register = async (name, email, password) => {
+        const response = await fetchNoToken('login/new-user', { name, email, password }, 'POST');
+        if(response.ok !== false){//undefinied
+            localStorage.setItem('tokenChat', response.token);
+            const user = response.user;
+            setAuth({
+                uid: user.uid,
+                cheking: false,
+                logged: true,
+                userName: user.name,
+                email: user.email
+            })
+        }
+        return response.ok;        
     }
 
     const verifyToken = useCallback( ()=> {
