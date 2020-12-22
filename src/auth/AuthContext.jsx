@@ -97,7 +97,11 @@ export const AuthProvider = ({children}) => {
     }, [] );
 
     const logout = () => {
-
+        localStorage.removeItem('tokenChat');
+        setAuth({            
+            checking: false,
+            logged: false,
+        });
     }
 
     return (
