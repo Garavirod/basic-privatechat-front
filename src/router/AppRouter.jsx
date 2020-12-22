@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { AuthContext } from "../auth/AuthContext";
 import { ChatView } from "../views/ChatView";
 import { AuthRouter } from "./AuthRouter";
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRouter = () => {
 
@@ -23,9 +25,17 @@ export const AppRouter = () => {
   return (
     <Router>
       <div>               
-          <Switch>
-            <Route path="/auth" component={ AuthRouter }/>
-            <Route exact path="/" component={ ChatView }/>
+          <Switch>            
+            <PublicRoute 
+              isAuthenticated={ auth.logged}
+              path="/auth/login" 
+              component={ AuthRouter } 
+            />
+            <PrivateRoute
+              isAuthenticated={ auth.logged}
+              path="/" 
+              component={ ChatView }
+            />            
             <Redirect to="/" />
         </Switch>
       </div>
