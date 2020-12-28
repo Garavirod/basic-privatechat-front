@@ -8,6 +8,14 @@ export const ChatReducer = (state, action) => {
                 ...state,
                 users: [...action.payload]
             }
+
+        case types.activeChat:
+            if(state.activeChat === action.payload) return state; //for avoiding purge all message
+            return {
+                ...state,
+                activeChat: action.payload,
+                messages:[]
+            }
         default:
             return state;
     }
