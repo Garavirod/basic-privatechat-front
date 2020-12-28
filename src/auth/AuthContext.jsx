@@ -80,7 +80,7 @@ export const AuthProvider = ({children}) => {
                 userName: user.name,
                 email: user.email
             });
-            console.log('Logged!');
+            // console.log('Logged!');
             return true;  
         }else{
             setAuth({
