@@ -32,6 +32,14 @@ export const ChatReducer = (state, action) => {
                 ...state,
                 messages: [ ...action.payload ]
             }
+        
+        case types.purge:
+            return {
+                uid:'',
+                activeChat:null, //User wich message want to be sent
+                users:[], //users bdd list
+                messages:[] //choosen chat
+            }
         default:
             return state;
     }

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ChatContext } from "../context/chat/ChatContext";
 import { fetchToken } from "../helpers/fetch";
+import { scrollBottom } from "../helpers/scrollMessages";
 import { types } from '../types/types';
 
 export const SideBarChatItem = (props) => {
@@ -20,6 +21,7 @@ export const SideBarChatItem = (props) => {
     });
 
     // Move scroll
+    scrollBottom('messages');
 
   }
 
